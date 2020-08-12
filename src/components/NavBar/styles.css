@@ -1,0 +1,53 @@
+.nav-bar {
+    margin: 2rem;
+    margin-left: 0rem;
+    width: 10rem;
+}
+
+ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+li {
+    margin-bottom: 0.5rem;
+}
+
+.button-is-secondary {
+    display: inline-block;
+    padding: 0.35em 1.2em;
+    border: 0.1em solid #5171b6;
+    margin: 0 0.3em 0.3em 0;
+    border-radius: 0.12em;
+    box-sizing: border-box;
+    width: 10rem;
+    text-decoration: none;
+    font-family: 'Roboto',sans-serif;
+    font-weight: 300;
+    font-size: medium;
+    color: black;
+    text-align: center;
+    transition: all 0.2;
+}
+
+.button-is-primary {
+    display: inline-block;
+    padding: 0.35em 1.2em;
+    border: 0.2em solid lightblue;
+    margin: 0 0.3em 0.3em 0;
+    border-radius: 0.12em;
+    box-sizing: border-box;
+    width: 10rem;
+    text-decoration: none;
+    font-family: 'Roboto',sans-serif;
+    font-weight: 300;
+    font-size: medium;
+    color: aliceblue;
+    background-color: #5171b6;
+    text-align: center;
+    transition: all 0.2;
+}
+button:hover{
+    color: aliceblue;
+    background-color: #5171b6;
+}

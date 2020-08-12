@@ -1,26 +1,49 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { connect } from 'react-redux';
+
+import { FoodListPage, BasketPage, SuccessPage } from './pages'
+import { NavBar, Header, NoMatch } from './components'
+import * as itemsActions from './actions/items';
+import * as basketSelectors from './selectors/basket';
+import { data } from './data'
+
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const mapStateToProps = (state) => ({
+  totalItems: basketSelectors.getBasketTotalItems(state)
+})
+
+export class App extends Component {
+  
+  componentDidMount() {
+    const { loadInitialData } = this.props
+    loadInitialData(data)
+  }
+  
+  render() {
+
+    const { totalItems } = this.props
+
+    return (
+      <div>
+        <Header text={'Awesome Shopping Basket App!'} />
+        <Router>
+          <div className='page-content'>
+            <div className='navigation-bar'>
+              <NavBar total={totalItems} match='/'/>
+            </div>
+            <Switch>
+            <Route exact path='/' component={FoodListPage} />
+            <Route exact path='/basket' component={BasketPage} />
+            <Route exact path='/success' component={SuccessPage} />
+            <Route component={NoMatch} />
+            </Switch>
+          </div>
+        </Router>
+      </div>
+    )
+  }
 }
 
-export default App;
+export default connect(mapStateToProps, {...itemsActions})(App)

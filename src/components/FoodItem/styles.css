@@ -1,0 +1,36 @@
+.item-box {
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    border: 2px solid #5171b6;
+    border-radius: 3px;
+    max-width: 17rem;
+}
+
+img {
+    height: 30px;
+    margin-right: 1rem;
+    margin: 0.5rem
+}
+
+.plus-button {
+    height: 25px;
+    margin-top: 0.7rem;
+    margin-left: 0.5rem;
+    border: 0.1em solid #5171b6;
+    border-radius: 0.12em;
+    font-weight: bolder;
+}
+
+.minus-button-display-false {
+    display: none;
+}
+
+.minus-button-display-true {
+    height: 25px;
+    margin-top: 0.7rem;
+    border: 0.1em solid #5171b6;
+    border-radius: 0.12em;
+    font-weight: bolder;
+}
