@@ -90,7 +90,6 @@ export class Basket extends Component {
         }
 
         return (
-
             <div> 
                 <div className='basket-header'>
                     <h3>Your Basket</h3>
