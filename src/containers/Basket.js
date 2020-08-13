@@ -7,6 +7,7 @@ import * as basketSelectors from '../selectors/basket'
 import * as basketActions from '../actions/basket'
 import { convertBasket } from '../services'
 import FoodItem from '../components/FoodItem';
+import SelectField from '../components/SelectField'
 
 const mapStateToProps = (state) => ({
     basket: basketSelectors.getBasketItems(state),
@@ -14,6 +15,11 @@ const mapStateToProps = (state) => ({
     totalItems: basketSelectors.getBasketTotalItems(state)
 })
 
+const currencyOptions = [
+    { value:'USD', label: 'USD'},
+    { value:'GBP', label: 'GBP'},
+    { value:'EUR', label: 'EUR'},
+]
 
 export class Basket extends Component {
     
@@ -40,7 +46,7 @@ export class Basket extends Component {
     handleChange = async (event) => {
         const { basketItemsList, handleChangeBasketPrice } = this.props
 
-        const chosenCurrency = event.target.value
+        const chosenCurrency = event.value
         const originalCurrency = basketItemsList[0].currency
 
         const updatedBasket = await convertBasket(basketItemsList, originalCurrency, chosenCurrency)
@@ -91,11 +97,17 @@ export class Basket extends Component {
                         </ul>
 
                         <div className='currency-dropdown'>
-                            <select onChange={this.handleChange}>
+                            {/* <select onChange={this.handleChange}>
                                     <option value='USD'>USD</option>
                                     <option value='GBP'>GBP</option>
                                     <option value='EUR'>EUR</option>
-                            </select>
+                            </select> */}
+                            <SelectField
+                                options={currencyOptions}
+                                defaultOption={basketItemsList[0].currency} 
+                                handleChange={this.handleChange}
+                            />
+
                             <Link to='/success'>
                                     <button className='button-is-secondary' onClick={this.handlePurchase}>Buy Now</button>
                             </Link>

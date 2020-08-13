@@ -55,10 +55,14 @@ const convertBasketItems = (basket, exchangeRate, newCurrency) => {
 
 
 export const convertBasket = async (basket, originalCurrency, chosenCurrency) => {
-  
-  const response = await callCurrencyConverter(originalCurrency, chosenCurrency)
-  const exchangeRate = response.quotes[`${originalCurrency}${chosenCurrency}`]
+  try {
+    const response = await callCurrencyConverter(originalCurrency, chosenCurrency)
+    const exchangeRate = response.quotes[`${originalCurrency}${chosenCurrency}`]
+    
+    return convertBasketItems(basket, exchangeRate, chosenCurrency)
+  } catch(err) {
+    console.log(err);
+  }
 
-  return convertBasketItems(basket, exchangeRate, chosenCurrency)
 
 } 
