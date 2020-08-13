@@ -51,3 +51,9 @@ button:hover{
     color: aliceblue;
     background-color: #5171b6;
 }
+
+button:disabled {
+background-color: lightgray;
+border: 0.2em solid lightgray;
+color: white;
+}

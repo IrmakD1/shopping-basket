@@ -2,11 +2,6 @@ import axios  from 'axios'
 import { map, get } from'lodash'
 
 
-// const fs = require('fs')
-
-// const accessToken = fs.readFileSync('../data/token')
-// const currencyShema = fs.readFileSync('../data/currencySchema')
-
 const accessToken = '677e4889458696246c0e21b77d8e513c'
 const currencySchema = {
   "USD": "$",
@@ -15,15 +10,10 @@ const currencySchema = {
 }
 
 const callCurrencyConverter = async (from,  to) => {
-    const url = `http://api.currencylayer.com/live?access_key=${accessToken}&source=${from}&currencies=${to}&format=1`
-
-    try {
-      const { data } = await axios.get(url)
-      return data
-    } catch (err) {
-      // TODO: error handling dispatch
-      console.log(err);
-    }
+  const url = `http://api.currencylayer.com/live?access_key=${accessToken}&source=${from}&currencies=${to}&format=1`
+      
+  const { data } = await axios.get(url)
+  return data
 }
 
 const convertBasketItems = (basket, exchangeRate, newCurrency) => {
@@ -55,14 +45,8 @@ const convertBasketItems = (basket, exchangeRate, newCurrency) => {
 
 
 export const convertBasket = async (basket, originalCurrency, chosenCurrency) => {
-  try {
     const response = await callCurrencyConverter(originalCurrency, chosenCurrency)
     const exchangeRate = response.quotes[`${originalCurrency}${chosenCurrency}`]
     
     return convertBasketItems(basket, exchangeRate, chosenCurrency)
-  } catch(err) {
-    console.log(err);
-  }
-
-
 } 

@@ -30,6 +30,19 @@
 .currency-dropdown {
   display: flex;
   justify-content: space-evenly;
+  margin: 1rem;
+  margin-bottom: 0;
+}
+
+.checkout-button {
+  display: flex;
+  justify-content: center;
+}
+
+.buy-button {
+    display: flex;
+    justify-content: center;
+    margin: 1rem
 }
 
 .tick-icon-image {

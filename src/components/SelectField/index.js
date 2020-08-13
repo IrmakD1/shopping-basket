@@ -1,5 +1,6 @@
 import React from 'react'
 import Select from 'react-select'
+import './styles.css'
 
 const SelectField = ({ options, defaultOption, handleChange }) => {
     return (
@@ -7,6 +8,7 @@ const SelectField = ({ options, defaultOption, handleChange }) => {
             value={defaultOption}
             onChange={handleChange}
             options={options}
+            className='react-select-container'
         />
     )
 }

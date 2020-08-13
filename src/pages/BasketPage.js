@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Basket from '../containers/Basket'
 
-export default class BasketPage extends Component {
-  render() {
-    return (
-        <div>
-          <Basket />
-        </div>
-    )
-  }
+const BasketPage = () => {
+  return (
+      <div>
+        <Basket />
+      </div>
+  )
 }
+
+export default BasketPage

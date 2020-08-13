@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 import * as itemsSelectors from '../selectors/items'
 import * as basketSelectors from '../selectors/basket'
 import * as basketActions from '../actions/basket'
+import * as errorActions from '../actions/error'
 
 import FoodItem from '../components/FoodItem';
 
@@ -17,6 +18,12 @@ const mapStateToProps = (state) => ({
 
 export class Food extends Component {
 
+    componentDidMount() {
+        const { handleClearError } = this.props
+
+        handleClearError()
+    }
+
     handleClick = (event) => {
         const { basketItemsList, handleAddBasketItem } = this.props
 
@@ -24,7 +31,7 @@ export class Food extends Component {
     }
 
     render() {
-        const { itemsList } = this.props
+        const { itemsList, basketItemsList } = this.props
 
         return (
             <div className='food-page'>
@@ -40,9 +47,15 @@ export class Food extends Component {
                             </li>
                         ))}
                     </ul>
-                    <Link to='/basket'>
-                        <button className='button-is-secondary'>Checkout</button>
-                    </Link>
+                    <div className='checkout-button'>
+                        <Link to='/basket'>
+                            <button 
+                                className='button-is-secondary'
+                                disabled={basketItemsList.length === 0}>
+                                    Checkout
+                            </button>
+                        </Link>
+                    </div>
                 </div>
             </div>
         )
@@ -50,4 +63,4 @@ export class Food extends Component {
 } 
 
 
-export default connect(mapStateToProps, {...basketActions})(Food)
+export default connect(mapStateToProps, {...basketActions, ...errorActions})(Food)

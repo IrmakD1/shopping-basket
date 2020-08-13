@@ -4,15 +4,19 @@ import { map } from 'lodash'
 import { connect } from 'react-redux';
 
 import * as basketSelectors from '../selectors/basket'
+import * as errorSelectors from '../selectors/error'
 import * as basketActions from '../actions/basket'
+import * as errorActions from '../actions/error'
 import { convertBasket } from '../services'
 import FoodItem from '../components/FoodItem';
+import Error from '../components/Error'
 import SelectField from '../components/SelectField'
 
 const mapStateToProps = (state) => ({
     basket: basketSelectors.getBasketItems(state),
     basketItemsList: basketSelectors.getItemsList(state),
-    totalItems: basketSelectors.getBasketTotalItems(state)
+    totalItems: basketSelectors.getBasketTotalItems(state),
+    error: errorSelectors.getError(state)
 })
 
 const currencyOptions = [
@@ -22,6 +26,12 @@ const currencyOptions = [
 ]
 
 export class Basket extends Component {
+
+    componentDidMount() {
+        const { handleClearError } = this.props
+
+        handleClearError()
+    }
     
 
     handleClick = (event) => {
@@ -44,13 +54,18 @@ export class Basket extends Component {
     }
 
     handleChange = async (event) => {
-        const { basketItemsList, handleChangeBasketPrice } = this.props
+        const { basketItemsList, handleChangeBasketPrice, handleAddError } = this.props
 
         const chosenCurrency = event.value
         const originalCurrency = basketItemsList[0].currency
 
-        const updatedBasket = await convertBasket(basketItemsList, originalCurrency, chosenCurrency)
-        handleChangeBasketPrice(updatedBasket)
+        try {
+            const updatedBasket = await convertBasket(basketItemsList, originalCurrency, chosenCurrency)
+            handleChangeBasketPrice(updatedBasket)
+        } catch (err) {
+            handleAddError()
+        }
+
     }
 
     calculateCost = (categoryArray) => {
@@ -61,7 +76,7 @@ export class Basket extends Component {
     }
 
     render() {
-        const { basketItemsList, basket } = this.props 
+        const { basketItemsList, basket, error } = this.props 
 
         if(basketItemsList.length === 0) {
 
@@ -80,6 +95,18 @@ export class Basket extends Component {
                 <div className='basket-header'>
                     <h3>Your Basket</h3>
                 </div>
+                {error !== undefined && (
+                    <div>
+                        <Error text={error} /> 
+                    </div>
+                )}
+                <div className='currency-dropdown'>
+                    <SelectField
+                        options={currencyOptions}
+                        defaultOption={basketItemsList[0].currency} 
+                        handleChange={this.handleChange}
+                    />
+                </div>
                 <div className='basket'>
                     <div>
                         <ul className='basket-list'>
@@ -96,18 +123,7 @@ export class Basket extends Component {
                             ))}
                         </ul>
 
-                        <div className='currency-dropdown'>
-                            {/* <select onChange={this.handleChange}>
-                                    <option value='USD'>USD</option>
-                                    <option value='GBP'>GBP</option>
-                                    <option value='EUR'>EUR</option>
-                            </select> */}
-                            <SelectField
-                                options={currencyOptions}
-                                defaultOption={basketItemsList[0].currency} 
-                                handleChange={this.handleChange}
-                            />
-
+                        <div className='buy-button'>
                             <Link to='/success'>
                                     <button className='button-is-secondary' onClick={this.handlePurchase}>Buy Now</button>
                             </Link>
@@ -119,4 +135,4 @@ export class Basket extends Component {
     }
 }
 
-export default connect(mapStateToProps, {...basketActions})(Basket)
+export default connect(mapStateToProps, {...basketActions, ...errorActions})(Basket)
