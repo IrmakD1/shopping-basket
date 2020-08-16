@@ -2,11 +2,14 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { connect } from 'react-redux';
 
-import { FoodListPage, BasketPage, SuccessPage } from './pages'
-import { NavBar, Header, NoMatch } from './components'
-import * as itemsActions from './actions/items';
-import * as basketSelectors from './selectors/basket';
-import { data } from './data'
+// import { FoodListPage, BasketPage, SuccessPage } from ''
+import FoodListPage from './FoodListPage';
+import BasketPage from './BasketPage';
+import SuccessPage from './SuccessPage';
+import { NavBar, Header, NoMatch } from '../components'
+import * as itemsActions from '../actions/items';
+import * as basketSelectors from '../selectors/basket';
+import { data } from '../data'
 
 import './App.css';
 

@@ -68,6 +68,13 @@ export class Basket extends Component {
 
     }
 
+    displaySelect = () => {
+        const { basketItemsList} = this.props
+
+        if (basketItemsList[0].currency === 'USD') return true
+        else return false
+    }
+
     calculateCost = (categoryArray) => {
         let priceArray = map(categoryArray, item => (item.price) * 100)
         const price = (priceArray.reduce((a, b) => a + b, 0)) / 100
@@ -99,13 +106,16 @@ export class Basket extends Component {
                         <Error text={error} /> 
                     </div>
                 )}
-                <div className='currency-dropdown'>
-                    <SelectField
-                        options={currencyOptions}
-                        defaultOption={basketItemsList[0].currency} 
-                        handleChange={this.handleChange}
-                    />
-                </div>
+                {this.displaySelect() && (
+                    <div className='currency-dropdown'>
+                        <SelectField
+                            options={currencyOptions}
+                            defaultOption={basketItemsList[0].currency} 
+                            handleChange={this.handleChange}
+                            display={this.displaySelect}
+                        />
+                    </div>
+                )}
                 <div className='basket'>
                     <div>
                         <ul className='basket-list'>

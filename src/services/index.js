@@ -9,14 +9,14 @@ const currencySchema = {
   "GBP": "£"
 }
 
-const callCurrencyConverter = async (from,  to) => {
+export const callCurrencyConverter = async (from,  to) => {
   const url = `http://api.currencylayer.com/live?access_key=${accessToken}&source=${from}&currencies=${to}&format=1`
       
   const { data } = await axios.get(url)
   return data
 }
 
-const convertBasketItems = (basket, exchangeRate, newCurrency) => {
+export const convertBasketItems = (basket, exchangeRate, newCurrency) => {
 
   if(get(basket[0], 'price')) {
     const newBasket = map(basket, itemObj => {

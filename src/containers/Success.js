@@ -28,6 +28,6 @@ class Success extends Component {
     }
 }
 
-const mapStateToProps = () => {}
+const mapStateToProps = () => ({})
 
 export default connect(mapStateToProps, {...errorActions})(Success)

@@ -1,5 +1,5 @@
 .item-box {
-    padding: 0.5rem;
+    padding: 1rem;
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
@@ -30,6 +30,7 @@ img {
 .minus-button-display-true {
     height: 25px;
     margin-top: 0.7rem;
+    margin-left: 0.5rem;
     border: 0.1em solid #5171b6;
     border-radius: 0.12em;
     font-weight: bolder;
