@@ -71,6 +71,10 @@ export class Basket extends Component {
     displaySelect = () => {
         const { basketItemsList} = this.props
 
+        console.log('this.props: ', this.props);
+
+        console.log('basketItemsList: ', this.props.basketItemsList)
+
         if (basketItemsList[0].currency === 'USD') return true
         else return false
     }

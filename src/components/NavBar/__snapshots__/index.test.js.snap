@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NavBar Component it should render 1`] = `
+<div>
+  <div
+    className="nav-bar"
+  >
+    <ul>
+      <li>
+        <a
+          href="/"
+          onClick={[Function]}
+        >
+          <button
+            className="button-is-secondary"
+          >
+            Food List
+             
+          </button>
+        </a>
+      </li>
+      <li>
+        <a
+          href="/basket"
+          onClick={[Function]}
+        >
+          <button
+            className="button-is-secondary"
+          >
+            Basket:
+             
+            1
+          </button>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+`;

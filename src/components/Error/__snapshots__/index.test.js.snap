@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Error Component it should render 1`] = `
+<div>
+  <div
+    className="error-banner"
+  >
+    <h4>
+      Whooooopppsss
+    </h4>
+  </div>
+</div>
+`;

@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NoMatch Component it should render 1`] = `
+<div>
+  <div
+    className="no-match"
+  >
+    <h1>
+      404
+    </h1>
+    <h2>
+      This page does not exist
+    </h2>
+  </div>
+</div>
+`;

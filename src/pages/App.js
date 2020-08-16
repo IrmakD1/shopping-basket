@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { connect } from 'react-redux';
 
-// import { FoodListPage, BasketPage, SuccessPage } from ''
 import FoodListPage from './FoodListPage';
 import BasketPage from './BasketPage';
 import SuccessPage from './SuccessPage';

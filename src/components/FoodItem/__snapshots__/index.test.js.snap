@@ -1,0 +1,65 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FoodItem Component on Food page it should render 1`] = `
+<div>
+  <div
+    className="item-box"
+  >
+    <div
+      className="food-icon"
+    >
+      <img
+        alt="Kevin Bacon icon"
+        src="test"
+      />
+    </div>
+    <p>
+       slice of Kevin Bacon: $1
+    </p>
+    <button
+      className="plus-button"
+      onClick={[Function]}
+    >
+       + 
+    </button>
+    <button
+      className="minus-button-display-false"
+      onClick={[Function]}
+    >
+       - 
+    </button>
+  </div>
+</div>
+`;
+
+exports[`FoodItem Component on basket page it should render 1`] = `
+<div>
+  <div
+    className="item-box"
+  >
+    <div
+      className="food-icon"
+    >
+      <img
+        alt="Kevin Bacon icon"
+        src="test"
+      />
+    </div>
+    <p>
+      2 slice of Kevin Bacon: $1
+    </p>
+    <button
+      className="plus-button"
+      onClick={[Function]}
+    >
+       + 
+    </button>
+    <button
+      className="minus-button-display-true"
+      onClick={[Function]}
+    >
+       - 
+    </button>
+  </div>
+</div>
+`;
