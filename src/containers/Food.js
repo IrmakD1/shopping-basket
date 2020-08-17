@@ -11,8 +11,9 @@ import * as errorActions from '../actions/error'
 import FoodItem from '../components/FoodItem';
 
 const mapStateToProps = (state) => ({
-    basket: basketSelectors.getBasketItems(state),
+    //returns the list of food items from the state
     itemsList: itemsSelectors.getItemsList(state),
+    //Returns the unsorted basket object in the state
     basketItemsList: basketSelectors.getItemsList(state)
 })
 
@@ -26,7 +27,6 @@ export class Food extends Component {
 
     handleClick = (event) => {
         const { basketItemsList, handleAddBasketItem } = this.props
-
         handleAddBasketItem(event, basketItemsList)
     }
 

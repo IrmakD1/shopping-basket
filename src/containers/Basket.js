@@ -11,19 +11,16 @@ import { convertBasket } from '../services'
 import FoodItem from '../components/FoodItem';
 import Error from '../components/Error'
 import SelectField from '../components/SelectField'
+import { currencyOptions } from '../data/currency'
 
 const mapStateToProps = (state) => ({
+    //Groups the basket into an array of all the food categories
     basket: basketSelectors.getBasketItems(state),
+    //Returns the unsorted basket object in the state
     basketItemsList: basketSelectors.getItemsList(state),
-    totalItems: basketSelectors.getBasketTotalItems(state),
+    //Returns the error from the store
     error: errorSelectors.getError(state)
 })
-
-const currencyOptions = [
-    { value:'USD', label: 'USD'},
-    { value:'GBP', label: 'GBP'},
-    { value:'EUR', label: 'EUR'},
-]
 
 export class Basket extends Component {
 
@@ -68,17 +65,15 @@ export class Basket extends Component {
 
     }
 
+    //If the currency is not USD the dropdown will not display, as you cannot make a second request to the api
     displaySelect = () => {
         const { basketItemsList} = this.props
-
-        console.log('this.props: ', this.props);
-
-        console.log('basketItemsList: ', this.props.basketItemsList)
 
         if (basketItemsList[0].currency === 'USD') return true
         else return false
     }
 
+    //calculates the total cost of all of one category of food in the basket
     calculateCost = (categoryArray) => {
         let priceArray = map(categoryArray, item => (item.price) * 100)
         const price = (priceArray.reduce((a, b) => a + b, 0)) / 100

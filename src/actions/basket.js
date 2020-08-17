@@ -25,9 +25,12 @@ export const clearBasket = () => ({
     type: CLEAR_BASKET
 })
 
+//Add a new item to the basket but checks if the currecny needs changing to match th existing basket first
 export const handleAddBasketItem = (item, existingBasket) => async dispatch => {
     
+    //Checks if there are any items in the existing basket
     if (existingBasket.length > 0) {
+        //If the currency of the new item does not match the current basket, it is updated
         if(item.currency !== existingBasket[0].currency) {
             const updatedItem = await convertBasket(item, item.currency, existingBasket[0].currency)
             
@@ -62,6 +65,7 @@ export const handleRemoveBasketItem = item => dispatch => {
     dispatch(removeBasketItem(item.id))
 }
 
+//updates the whole basket with a new price
 export const handleChangeBasketPrice = basket => dispatch => {
     dispatch(clearBasket())
     dispatch(addNewBasket(basket))

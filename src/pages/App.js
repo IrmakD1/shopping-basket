@@ -13,12 +13,14 @@ import { data } from '../data'
 import './App.css';
 
 const mapStateToProps = (state) => ({
+  //sum of all items in the basket to be passed into the NaBar counter
   totalItems: basketSelectors.getBasketTotalItems(state)
 })
 
 export class App extends Component {
   
   componentDidMount() {
+    // Adds the food items data into the store
     const { loadInitialData } = this.props
     loadInitialData(data)
   }
@@ -30,6 +32,8 @@ export class App extends Component {
     return (
       <div>
         <Header text={'Awesome Shopping Basket App!'} />
+
+        {/* All the routing for the App */}
         <Router>
           <div className='page-content'>
             <div className='navigation-bar'>

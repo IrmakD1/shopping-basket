@@ -1,14 +1,10 @@
 import axios  from 'axios'
 import { map, get } from'lodash'
 
+import { accessToken } from '../data/token'
+import { currencySchema } from '../data/currency'
 
-const accessToken = '677e4889458696246c0e21b77d8e513c'
-const currencySchema = {
-  "USD": "$",
-  "EUR": "€",
-  "GBP": "£"
-}
-
+//calls the currency converter api with the original currency and the target currency
 export const callCurrencyConverter = async (from,  to) => {
   const url = `http://api.currencylayer.com/live?access_key=${accessToken}&source=${from}&currencies=${to}&format=1`
       
@@ -18,6 +14,7 @@ export const callCurrencyConverter = async (from,  to) => {
 
 export const convertBasketItems = (basket, exchangeRate, newCurrency) => {
 
+  //checks if it is converting a full basket or if it is just converting a single item
   if(get(basket[0], 'price')) {
     const newBasket = map(basket, itemObj => {
       const newPrice = itemObj.price * exchangeRate
