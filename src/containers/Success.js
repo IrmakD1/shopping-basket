@@ -2,14 +2,16 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import * as errorActions from '../actions/error'
+import * as couponActions from '../actions/coupon'
 import greenTick from '../assets/icons/green-tick.png'
 
 class Success extends Component {
   
   componentDidMount() {
-    const { handleClearError } = this.props
+    const { handleClearError, handleClearCoupon } = this.props
 
     handleClearError()
+    handleClearCoupon()
   }
   
   render () {
@@ -30,4 +32,4 @@ class Success extends Component {
 
 const mapStateToProps = () => ({})
 
-export default connect(mapStateToProps, {...errorActions})(Success)
+export default connect(mapStateToProps, {...errorActions, ...couponActions})(Success)

@@ -7,7 +7,7 @@ const error = (state = initialState, action) => {
         case ADD_ERROR : 
             return {
                 ...state,
-                error: 'Ooops... Sorry there was an error doing that'
+                error: action.text
             }
         case CLEAR_ERROR : 
             return initialState

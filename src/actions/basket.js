@@ -1,5 +1,5 @@
-import { generateUID } from '../helpers'
-import { convertBasket } from '../services'
+import { generateUID } from '../factories'
+import { convertBasket, convertBasketItems } from '../services'
 
 export const ADD_BASKET_ITEM = 'ADD_BASKET_ITEM'
 export const REMOVE_BASKET_ITEM = 'REMOVE_BASKET_ITEM'
@@ -26,7 +26,7 @@ export const clearBasket = () => ({
 })
 
 //Add a new item to the basket but checks if the currecny needs changing to match th existing basket first
-export const handleAddBasketItem = (item, existingBasket) => async dispatch => {
+export const handleAddBasketItem = (item, existingBasket, coupon = {}) => async dispatch => {
     
     //Checks if there are any items in the existing basket
     if (existingBasket.length > 0) {
@@ -41,14 +41,27 @@ export const handleAddBasketItem = (item, existingBasket) => async dispatch => {
                 currencyUnit: existingBasket[0].currencyUnit,
             }
 
-            dispatch(addBasketItem(basketItem))
+            // Checks if a coupon already exists and applies it
+            if(Object.entries(coupon).length !== 0) {
+                const updatedBasketItem = convertBasketItems(basketItem, coupon.coupon.value, basketItem.currency)
+                dispatch(addBasketItem(updatedBasketItem))
+            } else {
+                dispatch(addBasketItem(basketItem))
+            }
+        // Generate new basket item
         } else {
             const basketItem = {
                 ...item,
                 id: generateUID()
             }
-    
-            dispatch(addBasketItem(basketItem))
+
+            // Checks if a coupon already exists and applies it
+            if(Object.entries(coupon).length !== 0) {
+                const updatedBasketItem = convertBasketItems(basketItem, coupon.coupon.value, basketItem.currency)
+                dispatch(addBasketItem(updatedBasketItem))
+            } else {
+                dispatch(addBasketItem(basketItem))
+            }
         }
     } else {
         const basketItem = {

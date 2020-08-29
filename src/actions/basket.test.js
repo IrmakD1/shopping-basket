@@ -55,7 +55,7 @@ jest.mock('../services', () => ({
     convertBasket: jest.fn(() => mockConvertedBasket)
 }))
 
-jest.mock('../helpers', () => ({
+jest.mock('../factories', () => ({
     generateUID: jest.fn(() => 'testId')
 }))
 

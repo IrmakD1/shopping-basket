@@ -5,12 +5,12 @@ import { connect } from 'react-redux';
 
 import * as basketSelectors from '../selectors/basket'
 import * as errorSelectors from '../selectors/error'
+import * as couponSelectors from '../selectors/coupon'
 import * as basketActions from '../actions/basket'
 import * as errorActions from '../actions/error'
+import * as couponActions from '../actions/coupon'
 import { convertBasket } from '../services'
-import FoodItem from '../components/FoodItem';
-import Error from '../components/Error'
-import SelectField from '../components/SelectField'
+import { FoodItem, SelectField, Error, Coupon } from '../components';
 import { currencyOptions } from '../data/currency'
 
 const mapStateToProps = (state) => ({
@@ -19,7 +19,9 @@ const mapStateToProps = (state) => ({
     //Returns the unsorted basket object in the state
     basketItemsList: basketSelectors.getItemsList(state),
     //Returns the error from the store
-    error: errorSelectors.getError(state)
+    error: errorSelectors.getError(state),
+    //Returns the existing coupon from the store
+    existingCoupon: couponSelectors.getCoupon(state)
 })
 
 export class Basket extends Component {
@@ -32,7 +34,7 @@ export class Basket extends Component {
     
 
     handleClick = (event) => {
-        const { basketItemsList, handleAddBasketItem } = this.props
+        const { basketItemsList, handleAddBasketItem, existingCoupon } = this.props
 
         handleAddBasketItem(event, basketItemsList)
     }
@@ -60,9 +62,8 @@ export class Basket extends Component {
             const updatedBasket = await convertBasket(basketItemsList, originalCurrency, chosenCurrency)
             handleChangeBasketPrice(updatedBasket)
         } catch (err) {
-            handleAddError()
+            handleAddError('Ooops... Sorry there was an error doing that')
         }
-
     }
 
     //If the currency is not USD the dropdown will not display, as you cannot make a second request to the api
@@ -81,8 +82,31 @@ export class Basket extends Component {
         return (Math.round(price * 100) / 100).toFixed(2)
     }
 
+    //calculates the total cost of the basket
+    calculateTotalCost = () => {
+        const { basket } = this.props
+
+        const basketTotalArray = map(basket, foodCategory => {
+            return this.calculateCost(foodCategory)
+        })
+
+        const priceArray = map(basketTotalArray, item => (item) * 100)
+        const price = (priceArray.reduce((a, b) => a + b, 0)) / 100
+
+        return (Math.round(price * 100) / 100).toFixed(2)
+    }
+    
+    applyCoupon = (code) => {
+        const { basketItemsList, handleAddCoupon, handleAddError, existingCoupon } = this.props
+        try {
+            handleAddCoupon(existingCoupon, code, basketItemsList)
+        } catch (err) {
+            handleAddError(err.message)
+        }
+    }
+
     render() {
-        const { basketItemsList, basket, error } = this.props 
+        const { basketItemsList, basket, error } = this.props
 
         if(basketItemsList.length === 0) {
 
@@ -130,12 +154,15 @@ export class Basket extends Component {
                                 </li>
                             ))}
                         </ul>
-
+                        <div className='basket-total'>
+                            <p>{`Basket Total: ${basketItemsList[0].currencyUnit}${this.calculateTotalCost()}`}</p>
+                        </div>
                         <div className='buy-button'>
                             <Link to='/success'>
                                     <button className='button-is-secondary' onClick={this.handlePurchase}>Buy Now</button>
                             </Link>
                         </div>
+                            <Coupon handleClick={this.applyCoupon}/>
                     </div>
                 </div>
             </div>
@@ -143,4 +170,4 @@ export class Basket extends Component {
     }
 }
 
-export default connect(mapStateToProps, {...basketActions, ...errorActions})(Basket)
+export default connect(mapStateToProps, {...basketActions, ...errorActions, ...couponActions})(Basket)

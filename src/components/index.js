@@ -1,3 +1,7 @@
 export { default as NavBar } from './NavBar'
 export { default as Header } from './Header'
 export { default as NoMatch } from './NoMatch'
+export { default as FoodItem } from './FoodItem'
+export { default as SelectField } from './SelectField'
+export { default as Error } from './Error'
+export { default as Coupon } from './Coupon'

@@ -45,6 +45,11 @@
     margin: 1rem
 }
 
+.basket-total {
+  display: flex;
+  justify-content: center;
+}
+
 .tick-icon-image {
   height: 3rem;
   margin-left: 1rem

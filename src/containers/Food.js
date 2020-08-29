@@ -5,16 +5,18 @@ import { Link } from 'react-router-dom'
 
 import * as itemsSelectors from '../selectors/items'
 import * as basketSelectors from '../selectors/basket'
+import * as couponSelectors from '../selectors/coupon'
 import * as basketActions from '../actions/basket'
 import * as errorActions from '../actions/error'
 
-import FoodItem from '../components/FoodItem';
+import { FoodItem } from '../components';
 
 const mapStateToProps = (state) => ({
     //returns the list of food items from the state
     itemsList: itemsSelectors.getItemsList(state),
     //Returns the unsorted basket object in the state
-    basketItemsList: basketSelectors.getItemsList(state)
+    basketItemsList: basketSelectors.getItemsList(state),
+    coupon: couponSelectors.getCoupon(state)
 })
 
 export class Food extends Component {
@@ -26,8 +28,8 @@ export class Food extends Component {
     }
 
     handleClick = (event) => {
-        const { basketItemsList, handleAddBasketItem } = this.props
-        handleAddBasketItem(event, basketItemsList)
+        const { basketItemsList, handleAddBasketItem, coupon } = this.props
+        handleAddBasketItem(event, basketItemsList, coupon)
     }
 
     render() {
