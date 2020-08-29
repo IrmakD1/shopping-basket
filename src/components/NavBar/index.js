@@ -14,7 +14,7 @@ const NavBar = ({ total, match }) => {
 
     return (
         <div className='nav-bar'>
-            <ul>
+            <ul className='nav-bar-list'>
                 <li key='1'>
                     <NavItem route='/' text='Food List' />
                 </li>

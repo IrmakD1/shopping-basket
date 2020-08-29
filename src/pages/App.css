@@ -54,3 +54,7 @@
   height: 3rem;
   margin-left: 1rem
 }
+
+ul {
+  list-style: none;
+}

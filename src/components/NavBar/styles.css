@@ -4,7 +4,7 @@
     width: 10rem;
 }
 
-ul {
+.nav-bar-list {
     list-style: none;
     padding-left: 0;
 }
